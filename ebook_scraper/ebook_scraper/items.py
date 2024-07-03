@@ -3,10 +3,14 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/items.html
 
-import scrapy
-
-
-class EbookScraperItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+from itemloaders.processors import MapCompose, TakeFirst
+from scrapy import Item, Field
+def get_price(txt):
+    return float(txt.replace("£",''))
+class EbookItem(Item):
+    title= Field(output_processor = TakeFirst())
+    price =Field(
+        input_processor =MapCompose(get_price),
+        output_processor = TakeFirst()
+    )
+    
