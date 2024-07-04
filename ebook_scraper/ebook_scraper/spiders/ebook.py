@@ -9,7 +9,7 @@ from scrapy.http import Response
 class EbookSpider(scrapy.Spider):
     name = "ebook"
     start_urls = ["https://books.toscrape.com/catalogue/category/books/travel_2/"]
-    
+    cols = ["Title","Price"]
     def parse(self, response: Response):
        ebooks =response.css("article.product_pod")
        for ebook in ebooks:
